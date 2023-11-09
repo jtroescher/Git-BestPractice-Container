@@ -1,37 +1,39 @@
-TEST = pytest 
-TEST_ARGS = --verbose --color=yes
-TYPE_CHECK = mypy --strict
-STYLE_CHECK = flake8
-STYLE_FIX = autopep8 --in-place --recursive --aggressive --aggressive
+# Makefile for Cosmic Path Optimization
 
-.PHONY: all
-all: style-check type-check run-test clean
+# Variables
+PYTHON = python3
+TEST_DIR = cosmicpathoptimization
+INPUT_FILE = 1.in
+EXPECTED_OUTPUT_FILE = cosmicpathoptimization/1.ans
+SUBMIT_SCRIPT = submit.py  # Replace with the actual path to submit.py
 
-.PHONY: type-check
-type-check:
-	$(TYPE_CHECK) .
+# Rules
+all: unit-test kattis-test style-check type-check
 
-.PHONY: style-check
+unit-test:
+	@echo "Running local unit tests..."
+	$(PYTHON) -m unittest discover -s $(TEST_DIR) -p "test_src.py"
+
+kattis-test:
+	@echo "Running local Kattis test..."
+	$(PYTHON) src.py < $(INPUT_FILE) > output.txt
+	diff -u $(EXPECTED_OUTPUT_FILE) output.txt && echo "Test passed" || echo "Test failed"
+
 style-check:
-	$(STYLE_CHECK) .
+	@echo "Checking code style..."
+	flake8 $(TEST_DIR)
 
-# discover and run all tests
-.PHONY: run-test
-run-test:
-	$(TEST) $(TEST_ARGS) .
+style-fix:
+	@echo "Fixing code style..."
+	autopep8 --in-place --recursive $(TEST_DIR)
 
-.PHONY: clean
-clean:
-	rm -rf __pycache__
-	rm -rf .pytest_cache
-	rm -rf .mypy_cache
-	rm -rf .hypothesis
+type-check:
+	@echo "Checking types with mypy..."
+	mypy $(TEST_DIR)
 
+# New target for submission
+submit:
+	@echo "Submitting solution to Kattis..."
+	$(PYTHON) $(SUBMIT_SCRIPT) -p cosmicpathoptimization -l "Python 3" src.py
 
-.PHONY: push
-push: run-test clean
-	
-
-.PHONY: fix-style
-fix-style:
-	$(STYLE_FIX) .
+.PHONY: unit-test kattis-test style-check style-fix type-check kattis-submit submit
