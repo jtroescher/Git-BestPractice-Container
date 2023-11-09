@@ -5,7 +5,7 @@
 
 [user]
 username: jacob-troescher
-token: 824b766299bd8610ca95de3561ffb0c2797ab35dce59d517b5719159d2d48eae
+token: *redacted*
 
 [kattis]
 hostname: open.kattis.com
