@@ -4,6 +4,8 @@ def calculate_average(n, t):
     return sum(t) // n
 
 if __name__ == "__main__":
+
+    
     n = int(input())
     t = list(map(int, input().split()))
     average = calculate_average(n, t)
