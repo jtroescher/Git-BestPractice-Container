@@ -5,10 +5,7 @@ def calculate_average(n: int, t: List[int]) -> int:
         return 0  # Avoid division by zero
     return sum(t) // n
 
-
 # Add two blank lines below the function
-    
-
 
 # Main block
 if __name__ == "__main__":
