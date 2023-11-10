@@ -10,7 +10,7 @@ import requests
 import requests.exceptions
 
 from lxml.html import fragment_fromstring
-
+ 
 # Python 2/3 compatibility
 if sys.version_info[0] >= 3:
     import configparser
