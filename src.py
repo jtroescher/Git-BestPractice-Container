@@ -6,6 +6,10 @@ def calculate_average(n: int, t: List[int]) -> int:
     return sum(t) // n
 
 
+# Add two blank lines below the function
+    
+
+
 # Main block
 if __name__ == "__main__":
     n = int(input())
